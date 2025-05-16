@@ -1,5 +1,3 @@
-#This is the sample code of discrete hopfield network
-
 import numpy as np
 import random
 from PIL import Image
@@ -7,11 +5,11 @@ import os
 import re
 from skimage.filters import threshold_otsu
 
-#convert matrix to a vector
+#mengubah matriks menjadi vektor
 def mat2vec(x):
     return x.flatten()
 
-#Create Weight matrix for a single image
+#Buat matriks Bobot untuk satu gambar
 def create_W(x):
     if len(x.shape) != 1:
         print("The input is not vector")
@@ -21,7 +19,7 @@ def create_W(x):
         np.fill_diagonal(w, 0)
     return w
 
-#Read Image file and convert it to Numpy array with adaptive threshold
+#Baca file Gambar dan ubah ke array Numpy dengan ambang batas adaptif
 def readImg2array(file, size):
     pilIN = Image.open(file).convert(mode="L")
     pilIN = pilIN.resize(size)
@@ -30,7 +28,7 @@ def readImg2array(file, size):
     x = np.where(imgArray > t, 1, -1)
     return x
 
-#Convert Numpy array to Image file like Jpeg
+#Ubah array Numpy ke file Gambar seperti Jpeg
 def array2img(data, outFile = None):
     y = np.zeros(data.shape,dtype=np.uint8)
     y[data==1] = 255
@@ -40,7 +38,7 @@ def array2img(data, outFile = None):
         img.save(outFile)
     return img
 
-#Asynchronous update
+#Pembaruan asinkron
 def update(w,y_vec,theta=0.0,time=30000):
     m = len(y_vec)
     for _ in range(time):
@@ -52,7 +50,7 @@ def update(w,y_vec,theta=0.0,time=30000):
             y_vec[i] = -1
     return y_vec
 
-#The following is training pipeline
+#alur pelatihan
 def hopfield(train_files, test_files, theta=0.0, time=30000, size=(28,28), current_path=None):
 
     print ("Importing images and creating weight matrix....")
