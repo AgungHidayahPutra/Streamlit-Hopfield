@@ -40,12 +40,12 @@ st.sidebar.title("Upload Data")
 train_imgs = st.sidebar.file_uploader("Upload Gambar Latih (bisa lebih dari satu)", type=["jpg","jpeg","png"], accept_multiple_files=True)
 test_img = st.sidebar.file_uploader("Upload Gambar Uji (1 file)", type=["jpg","jpeg","png"])
 
-st.title("🔁 Hopfield Network Visualizer (Disesuaikan dengan hopfield.py)")
+st.title("Implementasi dan Visualisasi Jaringan Hopfield untuk Pengenalan Pola Gambar Biner")
 st.markdown("Unggah gambar pelatihan dan satu gambar uji. Sistem akan melatih langsung dari gambar latih dan melakukan recall pada gambar uji.")
 
 if train_imgs and test_img:
     pattern_list = []
-    st.subheader("🧠 Gambar Latih")
+    st.subheader("Gambar Latih")
     cols = st.columns(min(len(train_imgs), 4))
     for i, file in enumerate(train_imgs):
         img = Image.open(file)
@@ -56,11 +56,11 @@ if train_imgs and test_img:
     pattern_matrix = np.array(pattern_list)
     W = train_hopfield(pattern_matrix)
 
-    st.subheader("📀 Cuplikan Matriks Bobot")
+    st.subheader("Cuplikan Matriks Bobot")
     W_df = np.round(W[:10, :10], 3)
     st.dataframe(W_df)
 
-    st.subheader("📄 Gambar Uji & Hasil Recall")
+    st.subheader("Gambar Uji & Hasil Recall")
     test_image = Image.open(test_img)
     test_vec = img2binarray(test_image).flatten()
     recalled_vec = recall(W, test_vec)
