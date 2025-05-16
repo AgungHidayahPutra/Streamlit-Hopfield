@@ -37,8 +37,8 @@ def hamming(a, b):
 
 # Sidebar untuk upload gambar latih dan uji
 st.sidebar.title("Upload Data")
-train_imgs = st.sidebar.file_uploader("Upload Gambar Latih (bisa lebih dari satu)", type=["jpg","jpeg","png"], accept_multiple_files=True)
-test_img = st.sidebar.file_uploader("Upload Gambar Uji (1 file)", type=["jpg","jpeg","png"])
+train_imgs = st.sidebar.file_uploader("Upload Gambar Latih", type=["jpg","jpeg","png"], accept_multiple_files=True)
+test_img = st.sidebar.file_uploader("Upload Gambar Uji", type=["jpg","jpeg","png"])
 
 st.title("Implementasi dan Visualisasi Jaringan Hopfield untuk Pengenalan Pola Gambar Biner")
 st.markdown("Unggah gambar pelatihan dan satu gambar uji. Sistem akan melatih langsung dari gambar latih dan melakukan recall pada gambar uji.")
@@ -69,7 +69,7 @@ if train_imgs and test_img:
     col1.image(test_image.resize((100, 100)), caption="Input Uji (Asli)")
     col2.image(Image.fromarray(np.uint8((recalled_vec.reshape(100, 100) + 1) * 127.5)), caption="Hasil Recall")
 
-    st.subheader("📊 Evaluasi terhadap Pola Latih")
+    st.subheader("Evaluasi terhadap Pola Latih")
     accs, hams, labels = [], [], []
     for i, p in enumerate(pattern_list):
         h = hamming(p, recalled_vec)
@@ -85,7 +85,7 @@ if train_imgs and test_img:
     }
     st.dataframe(eval_table)
 
-    st.subheader("📈 Grafik Akurasi")
+    st.subheader("Grafik Akurasi")
     sorted_indices = np.argsort(accs)[::-1]
     sorted_accs = np.array(accs)[sorted_indices]
     sorted_labels = np.array(labels)[sorted_indices]
